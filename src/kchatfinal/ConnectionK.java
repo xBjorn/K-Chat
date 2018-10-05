@@ -25,7 +25,7 @@ public class ConnectionK {
     public static void main(String[] args) {
         
         String connectString = "jdbc:mysql://localhost:3306/bjornwebsite?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&user=root&password=nova123";
-        String query = "SELECT VERSION()";
+        String query = "SELECT * FROM accounts";
         //Test the driver on the url
         try (Connection con = DriverManager.getConnection(connectString);
             Statement st = con.createStatement();
