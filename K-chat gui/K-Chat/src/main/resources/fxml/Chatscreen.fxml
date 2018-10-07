@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.BottomNavigationButton?>
+<?import com.gluonhq.charm.glisten.control.CardPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView layoutX="382.0" layoutY="43.0" prefHeight="591.0" prefWidth="882.0" />
+      <TextField layoutX="382.0" layoutY="642.0" prefHeight="25.0" prefWidth="681.0" />
+      <BottomNavigationButton layoutX="1063.0" layoutY="642.0" prefHeight="25.0" prefWidth="95.0" text="Send" />
+      <CardPane prefHeight="720.0" prefWidth="286.0">
+          <Label style="-fx-padding:10;" text="Friend 1" />
+          <Label style="-fx-padding:10;" text="Friend 2" />
+          <Label style="-fx-padding:10;" text="Friend 3" />
+         <effect>
+            <DropShadow color="#00000070" />
+         </effect>
+      </CardPane>
+   </children>
+</AnchorPane>
