@@ -5,9 +5,12 @@
  */
 package kchatfinal;
 
+//import java.io.InputStreamReader;
+//import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -15,50 +18,46 @@ import java.net.Socket;
  * @author bw
  */
 public class KChatClient {
-    
-    //Creating Socket datatype
-    Socket MyClient;
-    DataOutputStream output;
-    DataInputStream input;
-    
-    public void clientConnection(String serverIp,int serverPort)
+        
+    public void sendMessage(String serverIp, int serverPort, String message)
     {
+        //zorg dat iets luisterd voordat je probeert te connecten
+        
+        try {
+        Socket cSocket = new Socket(serverIp, serverPort);
+        DataOutputStream send = new DataOutputStream(cSocket.getOutputStream());
+        //        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //        message = br.readLine();
         
 
-        //Make connection w/ server
-        try 
-        {
-            MyClient = new Socket(serverIp, serverPort);
-        }
-        catch (IOException err) 
-        {
-            System.out.println(err);
-        }
-
-        try
-        {
-            output = new DataOutputStream(MyClient.getOutputStream());
-            input = new DataInputStream(MyClient.getInputStream());
-        }
-        catch (IOException err)
-        {
-            System.out.println(err);
-        }
+        //write and send
+        send.writeUTF(message);
+       
         
-        
-        
-        
+        }
+        catch(IOException e)
+        {
+            System.out.println("sendMessage: " + e);
+        }   
     }
     
-   
-    
-    
-    
+    public String getMsg(Socket listenSocket)
+    {
+        String recv = null;
+        while(!Thread.interrupted())
+        {
+        try{
+        DataInputStream receive = new DataInputStream(listenSocket.getInputStream());
+        recv = receive.readUTF();
+        }
+        catch(IOException error)
+        {
+            System.out.println(error);
+        }
+        }
+        
+        return recv;
+    }
 }
 
     
-    
-    
-    
-    
-
