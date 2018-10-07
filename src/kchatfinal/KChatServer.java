@@ -5,9 +5,11 @@
  */
 package kchatfinal;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -20,58 +22,40 @@ import java.net.Socket;
 
 public class KChatServer {
     
-    
-    ServerSocket ServerSocket;
-    
-    //final duznt change fam
-    private final int serverPort = 1024;
-    
-    private void makeServer()
-    {
-     
-        //Open server-socket
-        try {
-            ServerSocket = new ServerSocket(serverPort);
-        }
-        catch (IOException err)
+        public void listener()
         {
-            System.out.println(err);
-        }
-        
-        //Accept connection
-        Socket clientSocket = null;
-        
-        try 
-        {
-           clientSocket = ServerSocket.accept();
-        }
-        catch (IOException err)
-        {
-            System.out.println(err);
-        }
-        
-        DataInputStream input;
-        DataOutputStream output;
-        
-        try 
-        {
-            input = new DataInputStream(clientSocket.getInputStream());
-        }
-        catch (IOException err)
-        {
-            System.out.println(err);
-        }
-        
-        
-        try 
-        {
-            output = new DataOutputStream(clientSocket.getOutputStream());
-        }
-        catch (IOException err)
-        {
-            System.out.println(err);
-        }
+        //nagging about possiblity of empty return value so we make it null
+        String recv = null;
 
-    }
+        try{
+            //setup server
+            ServerSocket sSocket = new ServerSocket(1024);
+            
+            //listens for a connection to be made and accepts it
+            Socket listenSocket = sSocket.accept();
+            
+            
+            DataInputStream receive = new DataInputStream(listenSocket.getInputStream());
+
+       
+            
+            //convert accepted socket connection to utf
+            recv = receive.readUTF();
+            
+            
+            receive.close();
+            listenSocket.close();
+            sSocket.close();
+            
+            
     
+        }
+        catch(IOException e)
+        {
+            System.out.println("getMsg: " + e);
+        }
+        
+        
+        
+    }
 }
