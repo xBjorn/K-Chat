@@ -15,10 +15,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class StartscreenController implements Initializable {
 
@@ -59,15 +61,29 @@ public class StartscreenController implements Initializable {
         writer.close();
         System.out.println("Logging in" + publicIp + " as " + username);
 
+        //Changes scene
+        Parent chatscreenParent = FXMLLoader.load(getClass().getResource("/fxml/Chatscreen.fxml"));
+        Scene chatScene = new Scene(chatscreenParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(chatScene);
+        window.show();
 
     }
 
+    /*  public void changeScreen(ActionEvent event) throws IOException {
+        Parent chatscreenParent = FXMLLoader.load(getClass().getResource("/fxml/Chatscreen.fxml"));
+        Scene chatScene = new Scene(chatscreenParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(chatScene);
+        window.show();
+    }*/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         File file = new File("account.txt");
         PrintWriter writer;
         if (file.exists()) {
             System.out.println("logging in");
+
         }
 
     }
