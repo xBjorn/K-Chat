@@ -5,7 +5,6 @@
  */
 package kchatfinal;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -16,12 +15,17 @@ public class KChatHandler extends java.lang.Thread {
     
     //psvm
     public static void main(String[] args) {
+        
+        
         //testing local connectivity  
         //start server listener on 6666 and connect to it with the client connection   
-        KChatServer server = new KChatServer();
-        server.start(6666);
-        
         KChatClient client = new KChatClient();
+        KChatServer server = new KChatServer();
+        //on program load start the server to listen for messages?
+        server.start(6666);
+        //receive input from the textfield in the gui
+        client.sendMessage("dit bericht verstuur ik");
+        //start outgoing connection when pressed on button send
         client.startConnection("localhost", 6666);
         
         
