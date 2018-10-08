@@ -1,61 +1,63 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kchatfinal;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
+import java.io.*;
 
-/**
- *
- * @author bw
- */
-
-//Deze server moet geen functies gebruiken van KChatClient maar het over het internet verkrijgen
-
-public class KChatServer {
+public class KChatServer extends Thread {
     
-        public void listener()
-        {
-        //nagging about possiblity of empty return value so we make it null
-        String recv = null;
+     
 
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
+    private PrintWriter out;
+    private BufferedReader in;
+    
+    public void start(int port) {
+        
         try{
-            //setup server
-            ServerSocket sSocket = new ServerSocket(1024);
             
-            //listens for a connection to be made and accepts it
-            Socket listenSocket = sSocket.accept();
-            
-            
-            DataInputStream receive = new DataInputStream(listenSocket.getInputStream());
-
-       
-            
-            //convert accepted socket connection to utf
-            recv = receive.readUTF();
-            
-            
-            receive.close();
-            listenSocket.close();
-            sSocket.close();
-            
-            
-    
+        serverSocket = new ServerSocket(port);
+        clientSocket = serverSocket.accept(); 
+        
+        //prepare outbound connection with autoflush
+        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        in  = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        String greeting = in.readLine();
+     
+        if (greeting.equals("hello server")){
+            out.println("hello client");
         }
-        catch(IOException e)
+        else {
+            out.println("unrecognised greeting");
+        }
+        
+        }
+        catch(IOException sweetError)
         {
-            System.out.println("getMsg: " + e);
+            out.println("cant read the packet: "+sweetError);
         }
+
+    }
+    
+    public void stopConnection() {
+        try{
+        in.close();
+        out.close();
+        clientSocket.close();
+        serverSocket.close();
+        }
+        catch(IOException sweetError)
+        {
+            out.println(sweetError);
+        }
+    }
+
+    public static void main(String[] args)
+    {
         
-        
-        
+        KChatServer server = new KChatServer();
+        server.start(6666);
+
     }
 }
+
