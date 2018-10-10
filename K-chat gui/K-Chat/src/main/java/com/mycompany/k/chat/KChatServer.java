@@ -12,13 +12,11 @@ public class KChatServer extends Thread {
 
         @Override
 	public void run() {
-
 		try {
-			System.out.println("Thread "
-					+ Thread.currentThread().getId()
-					+ " is running");
-			serverSocket = new ServerSocket(6666);
+			
+			serverSocket = new ServerSocket(6666);                    
 			clientSocket = serverSocket.accept();
+                        
 
 			//prepare outbound connection with autoflush
 			out = new PrintWriter(clientSocket.getOutputStream());

@@ -4,7 +4,7 @@ import java.net.*;
 import java.io.*;
 
 public class KChatClient extends Thread {
-
+        private InputStream input;
 	private Socket clientSocket;
         private PrintWriter out;
 	private String ip;
@@ -17,14 +17,22 @@ public class KChatClient extends Thread {
                 this.msg = msg;
 		
 	}
-
+        
 	public void run(String ip, int port, String msg) {
 		try {
+                    System.out.println("run");
 			clientSocket = new Socket(this.ip, this.port);
 			System.out.println("connecting with: " + getIp());
                         out = new PrintWriter(clientSocket.getOutputStream());
-                        out.println(this.msg);
+                        out.write(msg);
                         out.flush();
+                        
+                        
+//                        input = clientSocket.getInputStream();
+//                        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+//                        String line = reader.readLine();
+//                        System.out.println(line);
+                 
                       
 		} catch (IOException sweetError) {
 			System.out.println("failed to create clientsocket?: " + sweetError);
