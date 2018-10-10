@@ -5,10 +5,11 @@ package com.mycompany.k.chat;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -17,12 +18,19 @@ import javafx.fxml.Initializable;
  */
 public class ChatscreenController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+	@FXML
+	private TextField addFriendField;
+
+	String testIp;
+
+	public void addIp() {
+		testIp = addFriendField.getText();
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+
+	}
+
 }

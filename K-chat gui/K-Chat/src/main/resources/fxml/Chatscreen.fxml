@@ -17,5 +17,7 @@
       <Button layoutX="1199.0" layoutY="517.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Send" />
       <ListView layoutX="455.0" layoutY="4.0" prefHeight="513.0" prefWidth="793.0" />
       <ScrollPane layoutX="-4.0" layoutY="-1.0" prefHeight="513.0" prefWidth="261.0" />
+      <TextField fx:id="addFriendField" layoutX="14.0" layoutY="578.0" />
+      <Button layoutX="171.0" layoutY="578.0" mnemonicParsing="false" text="Add" />
    </children>
 </AnchorPane>
