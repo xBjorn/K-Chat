@@ -30,10 +30,9 @@ public class ChatscreenController implements Initializable {
     }
 
     public void sendMessage() {
-        KChatClient kchat = new KChatClient(testIp,6666);
+        KChatClient kchat = new KChatClient(testIp,6666,chatField.getText());
         kchat.start();
-        kchat.sendMessage(chatField.getText());
-		chatField.clear();
+        chatField.clear();
     }
 
     @Override
