@@ -23,7 +23,7 @@ public class KChatHandler extends java.lang.Thread {
         KChatClient client = new KChatClient();
         KChatServer server = new KChatServer();
         //on program load start the server to listen for messages?
-        server.start(6666);
+        server.start();
         //receive input from the textfield in the gui
         //client.sendMessage(KChat-gui.txtTxtbox.Text.ToString());
         //start outgoing connection when pressed on button send

@@ -40,7 +40,7 @@ public class ChatscreenController implements Initializable {
 
         //start server if login ok
         KChatServer servertje = new KChatServer();
-        servertje.start(6666);
+        servertje.start();
         
 
     }
