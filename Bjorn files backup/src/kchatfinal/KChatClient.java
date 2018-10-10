@@ -1,63 +1,64 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kchatfinal;
 
-//import java.io.InputStreamReader;
-//import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
+import java.io.*;
 
-/**
- *
- * @author bw
- */
-public class KChatClient {
+public class KChatClient extends Thread {
         
-    public void sendMessage(String serverIp, int serverPort, String message)
-    {
-        //zorg dat iets luisterd voordat je probeert te connecten
-        
-        try {
-        Socket cSocket = new Socket(serverIp, serverPort);
-        DataOutputStream send = new DataOutputStream(cSocket.getOutputStream());
-        //        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        //        message = br.readLine();
-        
-
-        //write and send
-        send.writeUTF(message);
-       
-        
+    private Socket clientSocket;
+    private PrintWriter out;
+    private BufferedReader in;
+    
+    public void startConnection(String ip, int port) {
+        try{
+        clientSocket = new Socket(ip,port);
+        out = new PrintWriter(clientSocket.getOutputStream(),true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         }
-        catch(IOException e)
+        catch(IOException sweetError )
         {
-            System.out.println("sendMessage: " + e);
-        }   
+            System.out.println("failed to create clientsocket?: " + sweetError);
+        }
     }
     
-    public String getMsg(Socket listenSocket)
+    public String sendMessage(String msg)
     {
-        String recv = null;
-        while(!Thread.interrupted())
-        {
-        try{
-        DataInputStream receive = new DataInputStream(listenSocket.getInputStream());
-        recv = receive.readUTF();
-        }
-        catch(IOException error)
-        {
-            System.out.println(error);
-        }
-        }
         
-        return recv;
+        
+        String resp = "";
+        out.println(msg);
+        try{
+            resp = in.readLine();
+        }
+        catch(IOException sweetError)
+        {
+            out.println("cant read server msg" +sweetError);
+        }
+        return resp;
+        
     }
+    
+    public void stopConnection() {
+        try{
+            in.close();
+            out.close();
+            clientSocket.close();
+        }
+        catch(IOException sweetError)
+        {
+            out.println("cant close the reader or socket? " + sweetError);
+            
+        }
+            
+    }
+    
+    
+    
+    
+        
+     
+    
+    
 }
 
     
