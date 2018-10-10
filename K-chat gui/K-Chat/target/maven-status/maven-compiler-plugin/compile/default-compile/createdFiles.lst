@@ -1,4 +1,6 @@
 com\mycompany\k\chat\StartscreenController.class
 com\mycompany\k\chat\KChatClient.class
+com\mycompany\k\chat\KChatHandler.class
 com\mycompany\k\chat\ChatscreenController.class
 com\mycompany\k\chat\MainApp.class
+com\mycompany\k\chat\KChatServer.class

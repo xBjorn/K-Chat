@@ -22,6 +22,7 @@ public class KChatClient extends Thread {
 			clientSocket = new Socket(this.ip, this.port);
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                      
 		} catch (IOException sweetError) {
 			System.out.println("failed to create clientsocket?: " + sweetError);
 		}
@@ -38,7 +39,21 @@ public class KChatClient extends Thread {
 	public String sendMessage(String msg) {
 
 		String resp = "";
-		out.println(msg);
+                
+                BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+                
+                String userInput;
+         
+                try{
+                userInput = stdIn.readLine();
+                out.println(userInput);
+                System.out.println("echo: " + in.readLine());
+                }
+                catch(IOException e)
+                {
+                    System.out.println(e);
+                }
+           
 		try {
 			resp = in.readLine();
 		} catch (IOException sweetError) {
