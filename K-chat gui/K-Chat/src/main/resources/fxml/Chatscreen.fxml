@@ -7,9 +7,9 @@
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.k.chat.ChatscreenController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.k.chat.ChatscreenController">
    <children>
-      <TextField layoutX="455.0" layoutY="517.0" prefHeight="25.0" prefWidth="744.0">
+      <TextField fx:id="chatField" layoutX="455.0" layoutY="517.0" prefHeight="25.0" prefWidth="744.0">
          <effect>
             <Bloom />
          </effect>
@@ -18,6 +18,6 @@
       <ListView layoutX="455.0" layoutY="4.0" prefHeight="513.0" prefWidth="793.0" />
       <ScrollPane layoutX="-4.0" layoutY="-1.0" prefHeight="513.0" prefWidth="261.0" />
       <TextField fx:id="addFriendField" layoutX="14.0" layoutY="578.0" />
-      <Button layoutX="171.0" layoutY="578.0" mnemonicParsing="false" text="Add" />
+      <Button layoutX="171.0" layoutY="578.0" mnemonicParsing="false" onAction="#addIp" text="Add" />
    </children>
 </AnchorPane>

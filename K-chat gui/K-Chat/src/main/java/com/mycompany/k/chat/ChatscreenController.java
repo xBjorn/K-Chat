@@ -18,19 +18,31 @@ import javafx.scene.control.TextField;
  */
 public class ChatscreenController implements Initializable {
 
-	@FXML
-	private TextField addFriendField;
+    @FXML
+    private TextField addFriendField;
+    @FXML
+    private TextField chatField;
 
-	String testIp;
+    String testIp;
 
-	public void addIp() {
-		testIp = addFriendField.getText();
-	}
+    public void addIp() {
+        testIp = addFriendField.getText();
+    }
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+    public void sendMessage() {
+        KChatClient kchat = new KChatClient();
+        kchat.startConnection(testIp, 6666);
+        kchat.sendMessage(chatField.getText());
+    }
 
-	}
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        //start server if login ok
+        KChatServer servertje = new KChatServer();
+        servertje.start(6666);
+        
+
+    }
 
 }
