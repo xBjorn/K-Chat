@@ -10,6 +10,7 @@ public class KChatServer extends Thread {
 	private PrintWriter out;
 	private BufferedReader in;
 
+        @Override
 	public void run() {
 
 		try {
@@ -20,15 +21,18 @@ public class KChatServer extends Thread {
 			clientSocket = serverSocket.accept();
 
 			//prepare outbound connection with autoflush
-			out = new PrintWriter(clientSocket.getOutputStream(), true);
+			out = new PrintWriter(clientSocket.getOutputStream());
 			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			String greeting = in.readLine();
 			System.out.println(greeting);
+                        out.println(greeting);
 
 			if (greeting.equals("hello server")) {
-				out.println("hello client");
+				System.out.println("rcvd");
+                                out.println("hello client");
 			} else {
-				out.println("unrecognised greeting");
+                                System.out.println("rcvd");
+                                out.println("unrecognised greeting");
 			}
 
 		} catch (IOException sweetError) {
@@ -46,12 +50,5 @@ public class KChatServer extends Thread {
 		} catch (IOException sweetError) {
 			out.println(sweetError);
 		}
-	}
-
-	public static void main(String[] args) {
-
-		KChatServer server = new KChatServer();
-		server.start();
-
 	}
 }

@@ -22,8 +22,9 @@ public class KChatClient extends Thread {
 		try {
 			clientSocket = new Socket(this.ip, this.port);
 			System.out.println("connecting with: " + getIp());
-                        out = new PrintWriter(clientSocket.getOutputStream(), true);
-                        out.println(msg);
+                        out = new PrintWriter(clientSocket.getOutputStream());
+                        out.println(this.msg);
+                        out.flush();
                       
 		} catch (IOException sweetError) {
 			System.out.println("failed to create clientsocket?: " + sweetError);
