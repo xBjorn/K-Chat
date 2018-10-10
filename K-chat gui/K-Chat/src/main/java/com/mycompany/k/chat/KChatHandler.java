@@ -20,7 +20,7 @@ public class KChatHandler extends java.lang.Thread {
         
         //testing local connectivity  
         //start server listener on 6666 and connect to it with the client connection   
-        KChatClient client = new KChatClient();
+       // KChatClient client = new KChatClient();
         KChatServer server = new KChatServer();
         //on program load start the server to listen for messages?
         server.start();
