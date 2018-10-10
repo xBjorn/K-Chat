@@ -34,7 +34,6 @@ public class ChatscreenController implements Initializable {
         kchat.start();
         kchat.sendMessage(chatField.getText());
 		chatField.clear();
-		System.out.println(chatField.getText());
     }
 
     @Override
