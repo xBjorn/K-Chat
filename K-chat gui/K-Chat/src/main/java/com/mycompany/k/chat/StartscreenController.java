@@ -59,7 +59,7 @@ public class StartscreenController implements Initializable {
         writer = new PrintWriter(file);
         writer.write(publicIp + "," + username);
         writer.close();
-        System.out.println("Logging in" + publicIp + " as " + username);
+        System.out.println("Logging in: " + publicIp + " as " + username);
 
         //Changes scene
         Parent chatscreenParent = FXMLLoader.load(getClass().getResource("/fxml/Chatscreen.fxml"));

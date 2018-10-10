@@ -6,6 +6,7 @@
 package com.mycompany.k.chat;
 
 
+
 /**
  *
  * @author Bjorn
@@ -24,9 +25,9 @@ public class KChatHandler extends java.lang.Thread {
         //on program load start the server to listen for messages?
         server.start(6666);
         //receive input from the textfield in the gui
-        client.sendMessage(KChat-gui.txtTxtbox.Text.ToString());
+        //client.sendMessage(KChat-gui.txtTxtbox.Text.ToString());
         //start outgoing connection when pressed on button send
-        client.startConnection(txtIp, txtPort); //als ie opgeslagen is in txt als contact ofzo
+        //client.startConnection(txtIp, txtPort); //als ie opgeslagen is in txt als contact ofzo
         
         
     }
