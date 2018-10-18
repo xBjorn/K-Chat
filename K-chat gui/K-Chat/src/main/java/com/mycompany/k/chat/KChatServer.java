@@ -5,48 +5,56 @@ import java.io.*;
 
 public class KChatServer extends Thread {
 
-	private ServerSocket serverSocket;
-	private Socket clientSocket;
-	private PrintWriter out;
-	private BufferedReader in;
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
+    private PrintWriter out;
+    private BufferedReader in;
 
-        @Override
-	public void run() {
-		try {
-			
-			serverSocket = new ServerSocket(6666);                    
-			clientSocket = serverSocket.accept();
-                        
+    @Override
+    public void run() {
+        try {
+            //Make server socket
+            int serverPort = 12001;
+            ServerSocket serverSocket = new ServerSocket(serverPort);
+          //  serverSocket.setSoTimeout(10000);
 
-			//prepare outbound connection with autoflush
-			out = new PrintWriter(clientSocket.getOutputStream());
-			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			String greeting = in.readLine();
-			System.out.println(greeting);
-                        out.println(greeting);
+            while (true) {
+                System.out.println("Waiting for client in port.." + serverSocket.getLocalPort());
+                Socket server = serverSocket.accept();
+                System.out.println("Just connected to " + server.getRemoteSocketAddress());
 
-			if (greeting.equals("hello server")) {
-				System.out.println("rcvd");
-                                out.println("hello client");
-			} else {
-                                System.out.println("rcvd");
-                                out.println("unrecognised greeting");
-			}
+                //client writer
+                PrintWriter toClient
+                        = new PrintWriter(server.getOutputStream(), true);
 
-		} catch (IOException sweetError) {
-			out.println("cant read the packet: " + sweetError);
-		}
+                //read from client
+                BufferedReader fromClient
+                        = new BufferedReader(
+                                new InputStreamReader(server.getInputStream()));
 
-	}
+                //read line from the received msg
+                String line = fromClient.readLine();
+                System.out.println("Server received: " + line);
 
-	public void stopConnection() {
-		try {
-			in.close();
-			out.close();
-			clientSocket.close();
-			serverSocket.close();
-		} catch (IOException sweetError) {
-			out.println(sweetError);
-		}
-	}
+                //write back to the client with PrintWriter
+                toClient.println("Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
+
+            }
+        } catch (UnknownHostException ex) {
+            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopConnection() {
+        try {
+            in.close();
+            out.close();
+            clientSocket.close();
+            serverSocket.close();
+        } catch (IOException sweetError) {
+            out.println(sweetError);
+        }
+    }
 }
